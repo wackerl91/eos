@@ -29,7 +29,6 @@ class LunaExceptionController extends FOSRestController
     {
         $lunaException = new LunaException();
         $lunaException->setUserInformation($user);
-        $lunaException->setDate(new \DateTime());
 
         $form = $this->createForm(LunaExceptionType::class, $lunaException);
         $form->submit($request->request->all());
@@ -38,9 +37,9 @@ class LunaExceptionController extends FOSRestController
             $dm = $this->get('eos.manager.luna_exception');
             $dm->persist($lunaException);
 
-            return $this->view($lunaException, Response::HTTP_CREATED);
+            return $this->view([], Response::HTTP_CREATED);
         }
 
-        return $this->view($form->getErrors(), Response::HTTP_BAD_REQUEST);
+        return $this->view([], Response::HTTP_BAD_REQUEST);
     }
 }

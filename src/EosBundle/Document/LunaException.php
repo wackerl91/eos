@@ -4,11 +4,16 @@ namespace EosBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
+use EosBundle\Model\TimestampableInterface;
+use EosBundle\Model\TimestampableTrait;
+
 /**
  * @MongoDB\Document(collection="exception", repositoryClass="EosBundle\Repository\LunaExceptionRepository")
  */
-class LunaException
+class LunaException implements TimestampableInterface
 {
+    use TimestampableTrait;
+
     /**
      * @MongoDB\Id()
      *
@@ -22,13 +27,6 @@ class LunaException
      * @var UserInfo
      */
     protected $userInformation;
-
-    /**
-     * @MongoDB\Date()
-     *
-     * @var \DateTime
-     */
-    protected $date;
 
     /**
      * @MongoDB\String()
@@ -51,22 +49,6 @@ class LunaException
     public function setUserInformation($userInformation)
     {
         $this->userInformation = $userInformation;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @param \DateTime $date
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
     }
 
     /**

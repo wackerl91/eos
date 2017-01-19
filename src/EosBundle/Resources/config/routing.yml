@@ -9,3 +9,8 @@ usage:
 exception:
   resource: '@EosBundle/Controller/LunaExceptionController.php'
   type:     rest
+
+log_entry:
+  resource: '@EosBundle/Controller/LunaLogEntryController.php'
+  type:     rest
+

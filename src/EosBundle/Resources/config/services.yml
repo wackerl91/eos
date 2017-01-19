@@ -27,6 +27,15 @@ services:
     calls:
       - [ setRepository, ['@eos.repository.luna_exception'] ]
 
+  eos.manager.luna_log_entry:
+    class: EosBundle\Manager\LunaLogEntryManager
+    arguments:
+      - '@doctrine_mongodb'
+      - 'EosBundle\Document\LunaLogEntry'
+    calls:
+      - [ setRepository, ['@eos.repository.luna_log_entry'] ]
+
+
   #
   # Repositories
   #
@@ -54,6 +63,15 @@ services:
       - getRepository
     arguments:
       - 'EosBundle\Document\LunaException'
+
+  eos.repository.luna_log_entry:
+    class: Doctrine\Common\Persistence\ObjectRepository
+    factory:
+      - '@doctrine_mongodb'
+      - getRepository
+    arguments:
+      - 'EosBundle\Document\LunaLogEntry'
+
 
   #
   # ParamConverter

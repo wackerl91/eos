@@ -38,9 +38,9 @@ class UsageController extends FOSRestController
         if (!$recentUsage) {
             $dm->persist($usage);
 
-            return $this->view($usage, Response::HTTP_CREATED);
+            return $this->view([], Response::HTTP_CREATED);
         }
 
-        return $this->view($usage, Response::HTTP_ALREADY_REPORTED);
+        return $this->view([], Response::HTTP_ALREADY_REPORTED);
     }
 }

@@ -5,6 +5,7 @@ namespace EosBundle\Manager;
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use EosBundle\Model\TimestampableInterface;
 
 class Manager implements ManagerInterface
 {
@@ -59,6 +60,14 @@ class Manager implements ManagerInterface
     {
         if (!$model instanceof $this->class) {
             throw new \Exception("Model not supported!");
+        }
+
+        if ($model instanceof TimestampableInterface) {
+            if (!$model->getCreatedAt()) {
+                $model->setCreatedAt(new \DateTime());
+            }
+
+            $model->setUpdatedAt(new \DateTime());
         }
 
         $this->managerRegistry->getManager()->persist($model);

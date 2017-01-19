@@ -5,12 +5,17 @@ namespace EosBundle\Document;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
+use EosBundle\Model\TimestampableInterface;
+use EosBundle\Model\TimestampableTrait;
+
 /**
  * @MongoDB\Document(collection="user_info", repositoryClass="EosBundle\Repository\UserInfoRepository")
  *
  */
-class UserInfo
+class UserInfo implements TimestampableInterface
 {
+    use TimestampableTrait;
+
     /**
      * @MongoDB\Id()
      *

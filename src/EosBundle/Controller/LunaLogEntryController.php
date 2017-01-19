@@ -2,36 +2,40 @@
 
 namespace EosBundle\Controller;
 
+use EosBundle\Document\LunaLogEntry;
+use EosBundle\Form\LunaLogEntryType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\Controller\FOSRestController;
 
 use EosBundle\Document\UserInfo;
-use EosBundle\Form\UserInfoType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @REST\NamePrefix("eos_api_")
  */
-class UserInfoController extends FOSRestController
+class LunaLogEntryController extends FOSRestController
 {
     /**
-     * @REST\Route("/user/{userId}/upsert")
+     * @REST\Route("/user/{user}/log/create")
      *
      * @param Request  $request
-     * @param UserInfo $userId
+     * @param UserInfo $user
      *
      * @return \FOS\RestBundle\View\View
      */
-    public function putUserAction(Request $request, UserInfo $userId)
+    public function postLogEntryAction(Request $request, UserInfo $user)
     {
-        $form = $this->createForm(UserInfoType::class, $userId);
+        $lunaLogEntry = new LunaLogEntry();
+        $lunaLogEntry->setUserInformation($user);
+
+        $form = $this->createForm(LunaLogEntryType::class, $lunaLogEntry);
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            $dm = $this->get('eos.manager.user_info');
-            $dm->persist($userId);
+            $dm = $this->get('eos.manager.luna_log_entry');
+            $dm->persist($lunaLogEntry);
 
             return $this->view([], Response::HTTP_CREATED);
         }
