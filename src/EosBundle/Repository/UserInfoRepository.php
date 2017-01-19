@@ -2,10 +2,12 @@
 
 namespace EosBundle\Repository;
 
-
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
-class InstallationInfoRepository extends DocumentRepository
+/**
+ * Class UserInfoRepository
+ */
+class UserInfoRepository extends DocumentRepository
 {
 
 }

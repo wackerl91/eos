@@ -2,8 +2,8 @@
 
 namespace EosBundle\Controller;
 
-use EosBundle\Document\InstallationInfo;
-use EosBundle\Form\InstallationInfoCreateType;
+use EosBundle\Document\UserInfo;
+use EosBundle\Form\UserInfoType;
 use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\Controller\FOSRestController;
 
@@ -11,26 +11,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class InstallationInfoController
  * @REST\NamePrefix("eos_api_")
  */
-class InstallationInfoController extends FOSRestController
+class UserInfoController extends FOSRestController
 {
     /**
-     * @REST\Route("/installations/user/{userId}/upsert")
+     * @REST\Route("/user/{userId}/upsert")
      *
-     * @param Request $request
-     * @param InstallationInfo  $userId
+     * @param Request  $request
+     * @param UserInfo $userId
      *
      * @return \FOS\RestBundle\View\View
      */
-    public function putInstallationAction(Request $request, InstallationInfo $userId)
+    public function putUserAction(Request $request, UserInfo $userId)
     {
-        $form = $this->createForm(InstallationInfoCreateType::class, $userId);
+        $form = $this->createForm(UserInfoType::class, $userId);
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            $dm = $this->get('eos.manager.installation_info');
+            $dm = $this->get('eos.manager.user_info');
             $dm->persist($userId);
 
             return $this->view($userId, Response::HTTP_CREATED);

@@ -5,12 +5,10 @@ namespace EosBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Class InstallationInfo
- *
- * @MongoDB\Document(collection="installation_info", repositoryClass="EosBundle\Repository\InstallationInfoRepository")
+ * @MongoDB\Document(collection="user_info", repositoryClass="EosBundle\Repository\UserInfoRepository")
  *
  */
-class InstallationInfo
+class UserInfo
 {
     /**
      * @MongoDB\Id()
@@ -61,6 +59,9 @@ class InstallationInfo
      */
     protected $moonlightVersion;
 
+    /**
+     * @param string $userId
+     */
     public function __construct($userId)
     {
         $this->userId = $userId;

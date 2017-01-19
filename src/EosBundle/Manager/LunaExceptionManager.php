@@ -1,15 +1,13 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: ludwigwacker
- * Date: 19/01/17
- * Time: 16:45
- */
 
 namespace EosBundle\Manager;
 
+use EosBundle\Repository\LunaExceptionRepository;
 
-class LunaExceptionManager
+/**
+ * @method LunaExceptionRepository getRepository
+ */
+class LunaExceptionManager extends Manager
 {
 
 }

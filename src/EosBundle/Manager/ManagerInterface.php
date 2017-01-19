@@ -1,15 +1,33 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: ludwigwacker
- * Date: 19/01/17
- * Time: 13:41
- */
 
 namespace EosBundle\Manager;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 
-class ManagerInterface
+interface ManagerInterface
 {
+    /**
+     * @param ObjectRepository $repository
+     */
+    public function setRepository(ObjectRepository $repository);
 
+    /**
+     * @return ObjectRepository
+     */
+    public function getRepository();
+
+    /**
+     * @param      $model
+     * @param bool $flush
+     */
+    public function persist($model, $flush = true);
+
+    /**
+     */
+    public function flush();
+
+    /**
+     * @param string $class
+     */
+    public function supports($class);
 }

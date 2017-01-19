@@ -2,13 +2,12 @@
 
 namespace EosBundle\Manager;
 
-use EosBundle\Repository\InstallationInfoRepository;
+use EosBundle\Repository\UserInfoRepository;
 
 /**
- * Class InstallationInfoManager
- * @method InstallationInfoRepository getRepository
+ * @method UserInfoRepository getRepository
  */
-class InstallationInfoManager extends Manager
+class UserInfoManager extends Manager
 {
 
 }

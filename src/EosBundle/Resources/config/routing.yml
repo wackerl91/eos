@@ -1,0 +1,11 @@
+user_info:
+  resource: '@EosBundle/Controller/UserInfoController.php'
+  type:     rest
+
+usage:
+  resource: '@EosBundle/Controller/UsageController.php'
+  type:     rest
+
+exception:
+  resource: '@EosBundle/Controller/LunaExceptionController.php'
+  type:     rest

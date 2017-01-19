@@ -1,15 +1,17 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: ludwigwacker
- * Date: 19/01/17
- * Time: 13:09
- */
 
 namespace EosBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class EosExtension
+class EosExtension extends Extension
 {
-
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.yml');
+    }
 }

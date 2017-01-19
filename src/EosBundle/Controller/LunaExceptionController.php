@@ -1,15 +1,46 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: ludwigwacker
- * Date: 19/01/17
- * Time: 16:47
- */
 
 namespace EosBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class LunaExceptionController
+use FOS\RestBundle\Controller\Annotations as REST;
+use FOS\RestBundle\Controller\FOSRestController;
+
+use EosBundle\Document\LunaException;
+use EosBundle\Document\UserInfo;
+use EosBundle\Form\LunaExceptionType;
+
+/**
+ * @REST\NamePrefix("eos_api_")
+ */
+class LunaExceptionController extends FOSRestController
 {
+    /**
+     * @REST\Route("/user/{user}/exception/create")
+     *
+     * @param Request  $request
+     * @param UserInfo $user
+     *
+     * @return \FOS\RestBundle\View\View
+     */
+    public function postExceptionAction(Request $request, UserInfo $user)
+    {
+        $lunaException = new LunaException();
+        $lunaException->setUserInformation($user);
+        $lunaException->setDate(new \DateTime());
 
+        $form = $this->createForm(LunaExceptionType::class, $lunaException);
+        $form->submit($request->request->all());
+
+        if ($form->isValid()) {
+            $dm = $this->get('eos.manager.luna_exception');
+            $dm->persist($lunaException);
+
+            return $this->view($lunaException, Response::HTTP_CREATED);
+        }
+
+        return $this->view($form->getErrors(), Response::HTTP_BAD_REQUEST);
+    }
 }

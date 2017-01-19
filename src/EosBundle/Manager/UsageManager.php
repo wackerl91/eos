@@ -2,12 +2,12 @@
 
 namespace EosBundle\Manager;
 
-use EosBundle\Repository\UserInfoRepository;
+use EosBundle\Repository\UsageRepository;
 
 /**
- * @method UserInfoRepository getRepository
+ * @method UsageRepository getRepository
  */
-class UserInfoManager extends Manager
+class UsageManager extends Manager
 {
 
 }

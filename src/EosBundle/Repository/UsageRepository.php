@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
 /**
  * Class UserInfoRepository
  */
-class UserInfoRepository extends DocumentRepository
+class UsageRepository extends DocumentRepository
 {
 
 }

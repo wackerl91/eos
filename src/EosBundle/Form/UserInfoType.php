@@ -3,13 +3,13 @@
 namespace EosBundle\Form;
 
 
-use EosBundle\Document\InstallationInfo;
+use EosBundle\Document\UserInfo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class InstallationInfoCreateType extends AbstractType
+class UserInfoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -31,13 +31,13 @@ class InstallationInfoCreateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'      => InstallationInfo::class,
+            'data_class'      => UserInfo::class,
             'csrf_protection' => false,
         ]);
     }
 
     public function getName()
     {
-        return 'installation_info_create_type';
+        return 'user_info_type';
     }
 }

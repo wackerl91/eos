@@ -1,0 +1,67 @@
+services:
+  #
+  # Managers
+  #
+
+  eos.manager.user_info:
+    class: EosBundle\Manager\UserInfoManager
+    arguments:
+      - '@doctrine_mongodb'
+      - 'EosBundle\Document\UserInfo'
+    calls:
+      - [ setRepository, ['@eos.repository.user_info'] ]
+
+  eos.manager.usage:
+    class: EosBundle\Manager\UsageManager
+    arguments:
+      - '@doctrine_mongodb'
+      - 'EosBundle\Document\Usage'
+    calls:
+      - [ setRepository, ['@eos.repository.usage'] ]
+
+  eos.manager.luna_exception:
+    class: EosBundle\Manager\LunaExceptionManager
+    arguments:
+      - '@doctrine_mongodb'
+      - 'EosBundle\Document\LunaException'
+    calls:
+      - [ setRepository, ['@eos.repository.luna_exception'] ]
+
+  #
+  # Repositories
+  #
+
+  eos.repository.user_info:
+    class: Doctrine\Common\Persistence\ObjectRepository
+    factory:
+      - '@doctrine_mongodb'
+      - getRepository
+    arguments:
+      - 'EosBundle\Document\UserInfo'
+
+  eos.repository.usage:
+    class: Doctrine\Common\Persistence\ObjectRepository
+    factory:
+      - '@doctrine_mongodb'
+      - getRepository
+    arguments:
+      - 'EosBundle\Document\Usage'
+
+  eos.repository.luna_exception:
+    class: Doctrine\Common\Persistence\ObjectRepository
+    factory:
+      - '@doctrine_mongodb'
+      - getRepository
+    arguments:
+      - 'EosBundle\Document\LunaException'
+
+  #
+  # ParamConverter
+  #
+  eos.param_converter.user:
+    class: EosBundle\Request\ParamConverter\UserParamConverter
+    arguments:
+      - '@eos.manager.user_info'
+      - 'EosBundle\Document\UserInfo'
+    tags:
+      - { name: request.param_converter, alias: UserParamConverter }
