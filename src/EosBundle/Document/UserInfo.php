@@ -2,6 +2,7 @@
 
 namespace EosBundle\Document;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
@@ -60,11 +61,19 @@ class UserInfo
     protected $moonlightVersion;
 
     /**
+     * @MongoDB\EmbedMany(targetDocument="EosBundle\Document\LunaHost")
+     *
+     * @var LunaHost[]|ArrayCollection
+     */
+    protected $hosts;
+
+    /**
      * @param string $userId
      */
     public function __construct($userId)
     {
         $this->userId = $userId;
+        $this->hosts  = new ArrayCollection();
     }
 
     /**
@@ -161,5 +170,26 @@ class UserInfo
     public function setMoonlightVersion($moonlightVersion)
     {
         $this->moonlightVersion = $moonlightVersion;
+    }
+
+    /**
+     * @return ArrayCollection|LunaHost[]
+     */
+    public function getHosts()
+    {
+        return $this->hosts ? $this->hosts : $this->hosts = new ArrayCollection();
+    }
+
+    /**
+     * @param ArrayCollection|LunaHost[] $hosts
+     */
+    public function setHosts(ArrayCollection $hosts)
+    {
+        $this->hosts = $hosts;
+    }
+
+    public function addHost(LunaHost $host)
+    {
+        $this->getHosts()->add($host);
     }
 }

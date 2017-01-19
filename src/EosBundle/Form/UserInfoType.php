@@ -2,12 +2,13 @@
 
 namespace EosBundle\Form;
 
-
-use EosBundle\Document\UserInfo;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use EosBundle\Document\UserInfo;
 
 class UserInfoType extends AbstractType
 {
@@ -20,11 +21,12 @@ class UserInfoType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('lunaVersion',      TextType::class, ['required' => true])
-            ->add('systemIdentifier', TextType::class, ['required' => true])
-            ->add('systemVersion',    TextType::class, ['required' => true])
-            ->add('kodiVersion',      TextType::class, ['required' => true])
-            ->add('moonlightVersion', TextType::class, ['required' => true])
+            ->add('luna_version',      TextType::class, ['required' => true])
+            ->add('system_identifier', TextType::class, ['required' => true])
+            ->add('system_version',    TextType::class, ['required' => true])
+            ->add('kodi_version',      TextType::class, ['required' => true])
+            ->add('moonlight_version', TextType::class, ['required' => true])
+            ->add('hosts',            CollectionType::class, ['entry_type' => LunaHostType::class, 'allow_add' => true, 'allow_delete' => true])
         ;
     }
 

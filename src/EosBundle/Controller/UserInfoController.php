@@ -2,13 +2,14 @@
 
 namespace EosBundle\Controller;
 
-use EosBundle\Document\UserInfo;
-use EosBundle\Form\UserInfoType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\Controller\FOSRestController;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use EosBundle\Document\UserInfo;
+use EosBundle\Form\UserInfoType;
 
 /**
  * @REST\NamePrefix("eos_api_")

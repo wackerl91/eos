@@ -25,12 +25,21 @@ class UserParamConverter implements ParamConverterInterface
         $this->manager = $manager;
     }
 
+    /**
+     * @param Request        $request
+     * @param ParamConverter $configuration
+     *
+     * @return bool
+     *
+     * @throws \Exception
+     */
     public function apply(Request $request, ParamConverter $configuration)
     {
         if ($request->attributes->has('userId')) {
             $userId = $request->attributes->get('userId');
 
             if ($userId instanceof UserInfo) {
+
                 return true;
             } else {
                 $user = $this->manager->getRepository()->findOneBy(['userId' => $userId]);
@@ -47,6 +56,7 @@ class UserParamConverter implements ParamConverterInterface
             $user = $request->attributes->get('user');
 
             if ($user instanceof UserInfo) {
+
                 return true;
             }
 
