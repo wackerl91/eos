@@ -35,6 +35,14 @@ services:
     calls:
       - [ setRepository, ['@eos.repository.luna_log_entry'] ]
 
+  eos.manager.luna_uuid:
+    class: EosBundle\Manager\LunaUuidManager
+    arguments:
+      - '@doctrine_mongodb'
+      - 'EosBundle\Document\LunaUuid'
+    calls:
+      - [ setRepository, ['@eos.repository.luna_uuid'] ]
+
 
   #
   # Repositories
@@ -72,14 +80,24 @@ services:
     arguments:
       - 'EosBundle\Document\LunaLogEntry'
 
+  eos.repository.luna_uuid:
+    class: Doctrine\Common\Persistence\ObjectRepository
+    factory:
+      - '@doctrine_mongodb'
+      - getRepository
+    arguments:
+      - 'EosBundle\Document\LunaUuid'
+
 
   #
   # ParamConverter
   #
+
   eos.param_converter.user:
     class: EosBundle\Request\ParamConverter\UserParamConverter
     arguments:
       - '@eos.manager.user_info'
+      - '@eos.manager.luna_uuid'
       - 'EosBundle\Document\UserInfo'
     tags:
       - { name: request.param_converter, alias: UserParamConverter }

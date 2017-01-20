@@ -66,6 +66,13 @@ class UserInfo implements TimestampableInterface
     protected $moonlightVersion;
 
     /**
+     * @MongoDB\String()
+     *
+     * @var string
+     */
+    protected $localIp;
+
+    /**
      * @MongoDB\EmbedMany(targetDocument="EosBundle\Document\LunaHost")
      *
      * @var LunaHost[]|ArrayCollection
@@ -175,6 +182,22 @@ class UserInfo implements TimestampableInterface
     public function setMoonlightVersion($moonlightVersion)
     {
         $this->moonlightVersion = $moonlightVersion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocalIp()
+    {
+        return $this->localIp;
+    }
+
+    /**
+     * @param string $localIp
+     */
+    public function setLocalIp($localIp)
+    {
+        $this->localIp = $localIp;
     }
 
     /**

@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 
 use EosBundle\Document\Usage;
 use EosBundle\Document\UserInfo;
+use EosBundle\Manager\UsageManager;
 
 /**
  * @REST\NamePrefix("eos_api_")
@@ -31,16 +32,22 @@ class UsageController extends FOSRestController
         $dateTime = new \DateTime();
         $usage->setDate($dateTime->format('Y-m-d'));
 
-        $dm = $this->get('eos.manager.usage');
-
-        $recentUsage = $dm->getRepository()->findOneBy(['userInformation' => $user->getId(), 'date' => $usage->getDate()]);
+        $recentUsage = $this->getUsageManager()->getRepository()->getUsageByUserInformationAndDate($user, $usage->getDate());
 
         if (!$recentUsage) {
-            $dm->persist($usage);
+            $this->getUsageManager()->persist($usage);
 
             return $this->view([], Response::HTTP_CREATED);
         }
 
         return $this->view([], Response::HTTP_ALREADY_REPORTED);
+    }
+
+    /**
+     * @return UsageManager
+     */
+    private function getUsageManager()
+    {
+        return $this->get('eos.manager.usage');
     }
 }

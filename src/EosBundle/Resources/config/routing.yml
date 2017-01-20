@@ -14,3 +14,6 @@ log_entry:
   resource: '@EosBundle/Controller/LunaLogEntryController.php'
   type:     rest
 
+uuid_generation:
+  resource: '@EosBundle/Controller/UserIdGenerationController.php'
+  type:     rest

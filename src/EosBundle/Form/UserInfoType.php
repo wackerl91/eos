@@ -26,7 +26,12 @@ class UserInfoType extends AbstractType
             ->add('system_version',    TextType::class, ['required' => true])
             ->add('kodi_version',      TextType::class, ['required' => true])
             ->add('moonlight_version', TextType::class, ['required' => true])
-            ->add('hosts',            CollectionType::class, ['entry_type' => LunaHostType::class, 'allow_add' => true, 'allow_delete' => true])
+            ->add('local_ip',          TextType::class, ['required' => true])
+            ->add('hosts',             CollectionType::class, [
+                'entry_type'   => LunaHostType::class,
+                'allow_add'    => true,
+                'allow_delete' => true
+            ])
         ;
     }
 

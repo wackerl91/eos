@@ -17,7 +17,7 @@ use EosBundle\Form\UserInfoType;
 class UserInfoController extends FOSRestController
 {
     /**
-     * @REST\Route("/user/{userId}/upsert")
+     * @REST\Route("/user/{userId}")
      *
      * @param Request  $request
      * @param UserInfo $userId

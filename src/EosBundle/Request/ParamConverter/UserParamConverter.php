@@ -2,27 +2,35 @@
 namespace EosBundle\Request\ParamConverter;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 
 use EosBundle\Document\UserInfo;
-use EosBundle\Manager\ManagerInterface;
+use EosBundle\Manager\LunaUuidManager;
+use EosBundle\Manager\UserInfoManager;
 
 class UserParamConverter implements ParamConverterInterface
 {
     /**
-     * @var ManagerInterface
+     * @var UserInfoManager
      */
-    protected $manager;
+    protected $userManager;
 
     /**
-     * UserParamConverter constructor.
-     * @param ManagerInterface $manager
+     * @var LunaUuidManager
      */
-    public function __construct(ManagerInterface $manager)
+    protected $uuidManager;
+
+    /**
+     * @param UserInfoManager $userManager
+     * @param LunaUuidManager $uuidManager
+     */
+    public function __construct(UserInfoManager $userManager, LunaUuidManager $uuidManager)
     {
-        $this->manager = $manager;
+        $this->userManager = $userManager;
+        $this->uuidManager = $uuidManager;
     }
 
     /**
@@ -42,9 +50,16 @@ class UserParamConverter implements ParamConverterInterface
 
                 return true;
             } else {
-                $user = $this->manager->getRepository()->findOneBy(['userId' => $userId]);
+                $user = $this->userManager->getRepository()->getUserInfoByUserId($userId);
 
                 if ($user === null) {
+                    $existingIdPair = $this->uuidManager->getRepository()->getByHashedId($userId);
+
+                    if (!$existingIdPair) {
+
+                        throw new AccessDeniedException("I don't know you, go away!");
+                    }
+
                     $user = new UserInfo($userId);
                 }
 
@@ -60,10 +75,10 @@ class UserParamConverter implements ParamConverterInterface
                 return true;
             }
 
-            $user = $this->manager->getRepository()->findOneBy(['userId' => $user]);
+            $user = $this->userManager->getRepository()->getUserInfoByUserId($user);
 
             if ($user === null) {
-                throw new \Exception("User not found.");
+                throw new AccessDeniedException("I don't know you, go away!");
             }
 
             $request->attributes->set('user', $user);
@@ -74,6 +89,6 @@ class UserParamConverter implements ParamConverterInterface
 
     public function supports(ParamConverter $configuration)
     {
-        return $this->manager->supports($configuration->getClass());
+        return $this->userManager->supports($configuration->getClass());
     }
 }

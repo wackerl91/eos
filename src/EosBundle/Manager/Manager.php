@@ -59,7 +59,7 @@ class Manager implements ManagerInterface
     public function persist($model, $flush = true)
     {
         if (!$model instanceof $this->class) {
-            throw new \Exception("Model not supported!");
+            throw new \Exception(sprintf("Model not supported! Expected: %s, got: %s", $this->class, get_class($model)));
         }
 
         if ($model instanceof TimestampableInterface) {
