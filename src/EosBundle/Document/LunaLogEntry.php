@@ -33,6 +33,13 @@ class LunaLogEntry implements TimestampableInterface
      *
      * @var string
      */
+    protected $logChannel;
+
+    /**
+     * @MongoDB\String()
+     *
+     * @var string
+     */
     protected $logMessage;
 
     /**
@@ -63,6 +70,22 @@ class LunaLogEntry implements TimestampableInterface
     public function setLogLevel($logLevel)
     {
         $this->logLevel = $logLevel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogChannel()
+    {
+        return $this->logChannel;
+    }
+
+    /**
+     * @param string $logChannel
+     */
+    public function setLogChannel($logChannel)
+    {
+        $this->logChannel = $logChannel;
     }
 
     /**

@@ -15,6 +15,7 @@ class LunaLogEntryType extends AbstractType
     {
         $builder
             ->add('log_level',              TextType::class, ['required' => true])
+            ->add('log_channel',            TextType::class, ['required' => true])
             ->add('log_message',            TextType::class, ['required' => true])
             ->add('additional_information', TextType::class)
         ;
