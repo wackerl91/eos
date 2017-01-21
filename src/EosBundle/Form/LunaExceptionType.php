@@ -16,9 +16,9 @@ class LunaExceptionType extends AbstractType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('exception_string', TextType::class, ['required' => true])
-            ->add('exception_value',  TextType::class, ['required' => true])
-            ->add('traceback',        TextType::class, ['required' => true])
+            ->add('exception_type',  TextType::class, ['required' => true])
+            ->add('exception_value', TextType::class, ['required' => true])
+            ->add('traceback',       TextType::class, ['required' => true])
         ;
     }
 
