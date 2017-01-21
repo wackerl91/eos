@@ -40,6 +40,6 @@ class LunaLogEntryController extends FOSRestController
             return $this->view([], Response::HTTP_CREATED);
         }
 
-        return $this->view($form->getErrors(), Response::HTTP_BAD_REQUEST);
+        return $this->view([], Response::HTTP_BAD_REQUEST);
     }
 }

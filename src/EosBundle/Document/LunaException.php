@@ -33,7 +33,21 @@ class LunaException implements TimestampableInterface
      *
      * @var string
      */
-    protected $exceptionString;
+    protected $exceptionType;
+
+    /**
+     * @MongoDB\String()
+     *
+     * @var string
+     */
+    protected $exceptionValue;
+
+    /**
+     * @MongoDB\String()
+     *
+     * @var string
+     */
+    protected $traceback;
 
     /**
      * @return UserInfo
@@ -54,16 +68,48 @@ class LunaException implements TimestampableInterface
     /**
      * @return string
      */
-    public function getExceptionString()
+    public function getExceptionType()
     {
-        return $this->exceptionString;
+        return $this->exceptionType;
     }
 
     /**
-     * @param string $exceptionString
+     * @param string $exceptionType
      */
-    public function setExceptionString($exceptionString)
+    public function setExceptionType($exceptionType)
     {
-        $this->exceptionString = $exceptionString;
+        $this->exceptionType = $exceptionType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExceptionValue()
+    {
+        return $this->exceptionValue;
+    }
+
+    /**
+     * @param string $exceptionValue
+     */
+    public function setExceptionValue($exceptionValue)
+    {
+        $this->exceptionValue = $exceptionValue;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTraceback()
+    {
+        return $this->traceback;
+    }
+
+    /**
+     * @param string $traceback
+     */
+    public function setTraceback($traceback)
+    {
+        $this->traceback = $traceback;
     }
 }
