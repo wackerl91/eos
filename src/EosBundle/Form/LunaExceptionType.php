@@ -3,6 +3,7 @@
 namespace EosBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +19,7 @@ class LunaExceptionType extends AbstractType
         $builder
             ->add('exception_type',  TextType::class, ['required' => true])
             ->add('exception_value', TextType::class, ['required' => true])
-            ->add('traceback',       TextType::class, ['required' => true])
+            ->add('traceback',       CollectionType::class, ['required' => true, 'allow_add' => true])
         ;
     }
 

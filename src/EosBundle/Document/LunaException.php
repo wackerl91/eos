@@ -43,9 +43,9 @@ class LunaException implements TimestampableInterface
     protected $exceptionValue;
 
     /**
-     * @MongoDB\String()
+     * @MongoDB\Collection()
      *
-     * @var string
+     * @var array
      */
     protected $traceback;
 
